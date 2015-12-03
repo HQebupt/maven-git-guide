@@ -29,13 +29,13 @@
 
 ### 2 修改父工程为Maven的父工程
 创建成功后,需要将父工程改为Maven的父工程,修改`pom.xml`文件的 *packageing* 属性为`pom`, 如下
-```
+```xml
 	<packaging>pom</packaging>
 ```
 
 ### 3 创建各模块工程
 父工程创建成功后,创建各模块工程.分别创建模块 *app*, *module-a*, *module-com*.
-```
+```shell
 cd maven_git_guide
 mvn archetype:generate -DgroupId=com.github.hqebupt -DartifactId=app -DarchetypeArtifactId=maven-archetype-quickstart
 mvn archetype:generate -DgroupId=com.github.hqebupt -DartifactId=module-a -DarchetypeArtifactId=maven-archetype-quickstart
@@ -44,7 +44,7 @@ mvn archetype:generate -DgroupId=com.github.hqebupt -DartifactId=module-com -Dar
 
 
 创建各模块后，可以看到父工程*maven_git_guide* 的`pom.xml`文件中添加了子工程的信息：
-```
+```xml
 <modules>  
     <module>app</module>  
     <module>module-a</module>  
@@ -71,7 +71,7 @@ mvn archetype:generate -DgroupId=com.github.hqebupt -DartifactId=module-com -Dar
 
 #### 配置主模块app依赖ModuleA和ModuleCom
 修改app的pom.xml文件，添加ModuleA和ModuleCom的依赖：
-```
+```xml
 <dependency>
     <groupId>com.github.hqebupt</groupId>
     <artifactId>module-a</artifactId>
@@ -101,13 +101,13 @@ mvn archetype:generate -DgroupId=com.github.hqebupt -DartifactId=module-com -Dar
 
 ## maven安装jar包到本地库或私服
 ### 1 安装到本地库
-```
+```shell
 mvn install:install-file -DgroupId=com.github.hqebupt -DartifactId=app -Dversion=1.0 -Dpackaging=jar -Dfile=[path to file]
 ```
 > 如果是在maven工程里面,直接使用`mvn install`便可以安装到本地.
 
 ### 2 安装到私服
-```
+```shell
 mvn deploy:deploy-file -DgroupId=com.github.hqebupt -DartifactId=app -Dversion=1.0 -Dpackaging=jar -Dfile=[path to file] -Durl=[url] -DrepositoryId=[id]
 ```
 > 如果是在maven工程里面,在`pom.xml`里面配置`distributionManagement`的信息, 直接用`mvn deploy`可行.
